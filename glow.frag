@@ -97,7 +97,7 @@ void main() {
     float glow = (0.85 * rim + 0.55 * band + 0.45 * haze) * energy * uIntensity;
 
     // A faint white core on the very edge, as on Apple's; the rest stays saturated.
-    vec3 rgb = mix(col, vec3(1.0), clamp(rim * 0.14 + band * 0.05 * lvl, 0.0, 1.0));
+    vec3 rgb = mix(col, vec3(1.0), clamp(rim * 0.16 + band * 0.06 * lvl, 0.0, 1.0));
     float alpha = clamp(glow, 0.0, 1.0) * reveal * uPresence * qt_Opacity;
     fragColor = vec4(rgb * alpha, alpha);
 }

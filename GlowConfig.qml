@@ -11,8 +11,9 @@ import Quickshell.Io
 QtObject {
   id: root
 
-  // Apple Intelligence gradient (blue, violet, pink, orange), mirrored so it loops smoothly.
-  readonly property var applePalette: ["#0894FF", "#C959DD", "#FF2E54", "#FF9004", "#FF2E54", "#C959DD"]
+  // Apple Intelligence gradient (blue, violet, pink, orange), slightly softened and
+  // brightened, and mirrored so it loops smoothly.
+  readonly property var applePalette: ["#2FA0F6", "#CE77DE", "#F85472", "#F69D2B", "#F85472", "#CE77DE"]
 
   property string paletteMode: "apple"
   property real width: 34
