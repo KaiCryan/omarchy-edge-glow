@@ -12,7 +12,8 @@ PanelWindow {
   property var audio: null
   property var config: null
 
-  readonly property bool active: voxtype ? voxtype.active : false
+  readonly property bool dictating: voxtype ? voxtype.active : false
+  readonly property bool active: dictating || held
   readonly property bool animationsOn: Style.duration(1000) > 0
 
   // Animated values, advanced once per frame.
@@ -21,6 +22,9 @@ PanelWindow {
   property real level: 0
   property real thinking: 0
   property real clock: 0
+  property real flowPhase: 0
+  // Holds the glow through a brief idle blip between recording and transcribing.
+  property bool held: false
 
   screen: modelData
   visible: active || presence > 0.002
@@ -31,6 +35,17 @@ PanelWindow {
   WlrLayershell.layer: WlrLayer.Overlay
   WlrLayershell.keyboardFocus: WlrKeyboardFocus.None
   mask: Region {}
+
+  onDictatingChanged: {
+    if (dictating) { holdTimer.stop(); held = false }
+    else if (presence > 0.05) { held = true; holdTimer.restart() }
+  }
+
+  Timer {
+    id: holdTimer
+    interval: 350
+    onTriggered: panel.held = false
+  }
 
   onActiveChanged: {
     // Replay the entrance sweep each time dictation starts from rest.
@@ -61,7 +76,11 @@ PanelWindow {
       panel.level = panel.approach(panel.level, voice, dt, voice > panel.level ? 70 : 240)
       panel.thinking = panel.approach(panel.thinking, thinkingNow ? 1 : 0, dt, 320)
 
-      if (on) panel.clock += dt * (0.55 + 1.5 * panel.level + 0.9 * panel.thinking)
+      if (on) {
+        const step = dt * (0.55 + 1.5 * panel.level + 0.9 * panel.thinking)
+        panel.clock += step
+        panel.flowPhase = (panel.flowPhase + step * (0.045 + 0.10 * panel.thinking)) % 1000
+      }
     }
   }
 
@@ -76,6 +95,7 @@ PanelWindow {
 
     property size uResolution: Qt.size(width, height)
     property real uTime: panel.clock
+    property real uFlow: panel.flowPhase
     property real uLevel: panel.level
     property real uThinking: panel.thinking
     property real uReveal: panel.reveal

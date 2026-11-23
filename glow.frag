@@ -16,6 +16,7 @@ layout(std140, binding = 0) uniform buf {
     float uPresence;    // overall fade
     float uWidth;       // base glow depth
     float uIntensity;   // overall brightness
+    float uFlow;        // colour position around the edge, built up frame by frame
     float uRadius;      // corner radius
     vec4 uC0;
     vec4 uC1;
@@ -60,7 +61,7 @@ void main() {
     float a = atan(c.y, c.x) / TAU + 0.5;
 
     // Colours drift around the edge and wobble so blobs swell and merge.
-    float flow = uTime * (0.045 + 0.10 * uThinking);
+    float flow = uFlow;
     float wob = 0.035 * sin(a * TAU * 2.0 + uTime * 0.71)
               + 0.025 * sin(a * TAU * 3.0 - uTime * 1.13)
               + 0.015 * sin(a * TAU * 5.0 + uTime * 1.9);
