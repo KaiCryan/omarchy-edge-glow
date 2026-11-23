@@ -49,13 +49,13 @@ omarchy-shell edge-glow preview recording 8
 Optional, in `~/.config/omarchy/edge-glow.json`. Changes apply live.
 
 ```json
-{ "palette": "apple", "width": 34, "intensity": 1.0, "radius": 14, "monitor": "focused" }
+{ "palette": "apple", "width": 40, "intensity": 1.0, "radius": 14, "monitor": "focused" }
 ```
 
 | Key | Default | |
 |---|---|---|
 | `palette` | `"apple"` | `"apple"` or `"theme"` (uses your Omarchy theme's colours) |
-| `width` | `34` | How deep the glow reaches, in px (6–160) |
+| `width` | `40` | How deep the glow reaches, in px (6–160) |
 | `intensity` | `1.0` | Brightness (0.1–3) |
 | `radius` | `14` | Corner radius in px (0–80) |
 | `monitor` | `"focused"` | `"focused"`, `"all"`, or an output name like `"eDP-1"` |

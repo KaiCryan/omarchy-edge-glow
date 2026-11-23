@@ -100,7 +100,7 @@ PanelWindow {
     property real uThinking: panel.thinking
     property real uReveal: panel.reveal
     property real uPresence: panel.presence
-    property real uWidth: panel.config ? panel.config.width : 34
+    property real uWidth: panel.config ? panel.config.width : 40
     property real uIntensity: panel.config ? panel.config.intensity : 1
     property real uRadius: panel.config ? panel.config.radius : 14
     property color uC0: c(0)

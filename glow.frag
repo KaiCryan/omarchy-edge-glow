@@ -75,7 +75,7 @@ void main() {
     float shimmer = mix(1.0, 0.82 + 0.18 * sin(uTime * 5.0 + a * TAU * 2.0), uThinking);
     // While transcribing, hold a steady mid-level glow instead of following the mic.
     float lvl = max(uLevel, 0.45 * uThinking);
-    float w = uWidth * breathe * (0.55 + 1.15 * lvl) * shimmer;
+    float w = uWidth * breathe * (0.60 + 1.55 * lvl) * shimmer;
     w = max(w, 1.0);
 
     // Entrance: the glow rolls up both sides from the bottom centre.
@@ -93,7 +93,7 @@ void main() {
     float rim  = exp(-d / 1.6);
     float band = exp(-ds / (w * 0.32));
     float haze = exp(-pow(ds / (w * 1.25), 1.4));
-    float energy = 0.85 + 0.55 * lvl;
+    float energy = 0.90 + 0.70 * lvl;
     float glow = (0.85 * rim + 0.55 * band + 0.45 * haze) * energy * uIntensity;
 
     // A faint white core on the very edge, as on Apple's; the rest stays saturated.

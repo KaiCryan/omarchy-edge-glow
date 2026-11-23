@@ -4,7 +4,7 @@ import Quickshell.Io
 
 // Optional settings in ~/.config/omarchy/edge-glow.json (reloads live):
 //   palette    "apple" (default) or "theme" (follows the Omarchy theme)
-//   width      glow depth in pixels (default 34)
+//   width      glow depth in pixels (default 40)
 //   intensity  brightness multiplier (default 1.0)
 //   radius     corner radius in pixels (default 14)
 //   monitor    "focused" (default), "all", or an output name such as "eDP-1"
@@ -16,7 +16,7 @@ QtObject {
   readonly property var applePalette: ["#2FA0F6", "#CE77DE", "#F85472", "#F69D2B", "#F85472", "#CE77DE"]
 
   property string paletteMode: "apple"
-  property real width: 34
+  property real width: 40
   property real intensity: 1.0
   property real radius: 14
   property string monitor: "focused"
@@ -32,7 +32,7 @@ QtObject {
     let v = {}
     try { v = JSON.parse(text || "{}") || {} } catch (e) { v = {} }
     paletteMode = v.palette === "theme" ? "theme" : "apple"
-    width = num(v.width, 34, 6, 160)
+    width = num(v.width, 40, 6, 160)
     intensity = num(v.intensity, 1.0, 0.1, 3)
     radius = num(v.radius, 14, 0, 80)
     monitor = typeof v.monitor === "string" && v.monitor.length < 64 ? v.monitor : "focused"
