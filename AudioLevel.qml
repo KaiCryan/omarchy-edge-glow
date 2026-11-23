@@ -10,8 +10,12 @@ Item {
   property bool vad: false
   // Loudest recent frame; decays so quiet and loud mics both fill the range.
   property real reference: 0.05
+  // Synthetic speech-like level for previews.
+  property bool simulate: false
+  property real simulated: 0
 
   readonly property real target: {
+    if (simulate) return simulated
     if (!enabled) return 0
     const n = Math.min(1, rms / Math.max(0.02, reference))
     return Math.pow(n, 0.8) * (vad ? 1 : 0.4)
@@ -50,6 +54,20 @@ Item {
         root.reset()
         if (root.enabled) retry.restart()
       }
+    }
+  }
+
+  Timer {
+    interval: 33
+    repeat: true
+    running: root.simulate
+    property real t: 0
+    onTriggered: {
+      t += 0.033
+      // Syllable-ish bursts with pauses between phrases.
+      const phrase = Math.max(0, Math.sin(t * 0.9))
+      const syll = 0.5 + 0.5 * Math.sin(t * 9.3) * Math.sin(t * 5.1 + 1.3)
+      root.simulated = Math.min(1, phrase * (0.35 + 0.65 * syll))
     }
   }
 

@@ -7,7 +7,9 @@ QtObject {
   id: root
   readonly property string runtimeDir: Quickshell.env("XDG_RUNTIME_DIR") || ("/run/user/" + Quickshell.env("UID"))
   property string daemonState: "idle"
-  readonly property string state: daemonState
+  // Set by the preview IPC command to show the glow without dictating.
+  property string previewState: ""
+  readonly property string state: previewState || daemonState
   property bool suppressed: false
   readonly property bool listening: state === "recording" || state === "streaming"
   readonly property bool thinking: state === "transcribing"
