@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 1,
+  "id": "kaicryan.edge-glow",
+  "name": "Edge Glow",
+  "version": "1.0.0",
+  "author": "Kai Cryan",
+  "license": "MIT",
+  "description": "Apple Intelligence-style glow around the screen edge while Voxtype is dictating. It swells with your voice and shimmers while transcribing.",
+  "kinds": ["service"],
+  "keepLoaded": true,
+  "entryPoints": {
+    "service": "Service.qml"
+  }
+}
